@@ -20,9 +20,10 @@ public class Fruit : MonoBehaviour
         foreach(Rigidbody r in rbsOnSlice)
         {
             r.transform.rotation = Random.rotation;
-            r.AddExplosionForce(Random.Range(500, 600), transform.position, 5f);
+            r.AddExplosionForce(Random.Range(500, 750), transform.position, 2.5f);
         }
 
+        Destroy(instance.gameObject, 5f);
         Destroy(this.gameObject);
     }
 }
