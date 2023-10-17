@@ -2,16 +2,8 @@ using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
-    public GameObject slicedFruitPrefab;    
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnSlicedFruit();
-        }
-    }
-
+    public GameObject slicedFruitPrefab;  
+    
     public void SpawnSlicedFruit()
     {
         GameObject instance = (GameObject)Instantiate(slicedFruitPrefab, transform.position, transform.rotation);
@@ -25,5 +17,13 @@ public class Fruit : MonoBehaviour
 
         Destroy(instance.gameObject, 5f);
         Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        BladeScript b = collision.GetComponent<BladeScript>();
+        if(!b) return;
+
+        SpawnSlicedFruit();
     }
 }
