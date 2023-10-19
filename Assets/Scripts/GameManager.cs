@@ -7,11 +7,16 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public int score;
-    public TextMeshPro scoreText;
+    public TextMeshProUGUI scoreText;
 
-    public void IncreaseScore()
+    public void IncreaseScore(int points)
     {
-        score += 2;
-        //scoreText = score.ToString();
+        score += points;
+        scoreText.text = score.ToString();
+    }
+
+    public void OnBombCollision()
+    {
+
     }
 }

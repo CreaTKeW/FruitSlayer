@@ -6,6 +6,8 @@ public class Fruit : MonoBehaviour
     
     public void SpawnSlicedFruit()
     {
+        FindObjectOfType<GameManager>().IncreaseScore(3);
+
         GameObject instance = (GameObject)Instantiate(slicedFruitPrefab, transform.position, transform.rotation);
         Rigidbody[] rbsOnSlice = instance.transform.GetComponentsInChildren<Rigidbody>();
 
