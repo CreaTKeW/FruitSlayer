@@ -16,16 +16,11 @@ public class fruitSpawner : MonoBehaviour
     public float minForce = 15f;
     public float maxForce = 20f;
 
-    void Start()
-    {
-        StartCoroutine(SpawnFruits());    
-    }
-
-    private IEnumerator SpawnFruits()
+    public IEnumerator SpawnFruits()
     {
         while (true)
         {
-            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));
+            yield return new WaitForSeconds(Random.Range(minWaitTime, maxWaitTime));  
 
             Transform t = spawnPlaces[Random.Range(0, spawnPlaces.Length)];
 
