@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Net.Sockets;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +12,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highscoreText;
     // EndGameUI elements
+    public GameObject newHighscoreDisplay;
     public TextMeshProUGUI endScoreText;
     public TextMeshProUGUI endHighscoreText;
     // Full UI
@@ -32,10 +32,11 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        highscore = PlayerPrefs.GetInt("HIGHSCORE");
+        highscore = PlayerPrefs.GetInt("highscore");
         highscoreText.text = highscore.ToString();
         endHighscoreText.text = highscore.ToString();
 
+        newHighscoreDisplay.SetActive(false);
         MainMenu.SetActive(true);
         ScoreUI.SetActive(false);
         EndGameUI.SetActive(false);
@@ -52,10 +53,10 @@ public class GameManager : MonoBehaviour
     {
         if(score > highscore)
         {            
-            PlayerPrefs.SetInt("HIGHSCORE", score);
-            //highscore = PlayerPrefs.GetInt("HIGHSCORE");
+            PlayerPrefs.SetInt("highscore", score);
+            highscore = PlayerPrefs.GetInt("highscore");
             highscoreText.text = highscore.ToString();
-            endHighscoreText.text = highscore.ToString();
+            if (EndGameUI != null) newHighscoreDisplay.SetActive(true); 
         }
         else { return; }
     }
