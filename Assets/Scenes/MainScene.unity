@@ -3400,6 +3400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Watermelon
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ee7f2f2efa48f4f44a73e902f1d3af93, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4126,6 +4130,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ee7f2f2efa48f4f44a73e902f1d3af93, type: 3}
       propertyPath: m_Name
       value: Watermelon2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ee7f2f2efa48f4f44a73e902f1d3af93, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
