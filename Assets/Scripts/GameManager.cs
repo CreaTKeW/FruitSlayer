@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public IEnumerator myCoroutine;
     public fruitSpawner fSpawner;
     // GameUI elements
     public TextMeshProUGUI scoreText;
@@ -27,8 +28,9 @@ public class GameManager : MonoBehaviour
 
 
     void Awake()
-    {
+    {       
         fSpawner = fSpawner.GetComponent<fruitSpawner>();
+        myCoroutine = fSpawner.SpawnFruits();
     }
     void Start()
     {
@@ -65,8 +67,7 @@ public class GameManager : MonoBehaviour
     {
         MainMenu.SetActive(false);
         ScoreUI.SetActive(true);
-        Spawner.SetActive(true);
-        StartCoroutine(fSpawner.SpawnFruits());
+        StartCoroutine(myCoroutine);
     }
 
     public void GoToSettings()
@@ -83,15 +84,27 @@ public class GameManager : MonoBehaviour
 
     public void OnBombCollision()
     {
+        StopCoroutine(myCoroutine);
         ScoreUI.SetActive(false);
         EndGameUI.SetActive(true);
-        Time.timeScale = 0;
+        CleanScene();       
+    }
+
+    public void CleanScene()
+    {
+        Fruit[] fruits = FindObjectsOfType<Fruit>();
+        foreach (Fruit fruit in fruits)
+        { Destroy(fruit.gameObject); }
+
+        Bomb[] bombs = FindObjectsOfType<Bomb>();
+        foreach (Bomb bomb in bombs) 
+        { Destroy(bomb.gameObject); }
+        
     }
 
     public void Restart()
     {
         SceneManager.LoadScene(0);
-        Time.timeScale = 1f;
     }
 
     public void OnApplicationQuit()

@@ -34,8 +34,7 @@ public class fruitSpawner : MonoBehaviour
             else { gameObject = fruitsToSpawn[Random.Range(0, fruitsToSpawn.Length)]; }
 
             GameObject fruit = Instantiate(gameObject, t.position, Quaternion.Euler(-90,0,0));
-
-            fruit.GetComponent<Rigidbody2D>().AddForce(t.transform.up * Random.Range(minForce, maxForce), ForceMode2D.Impulse);
+            fruit.GetComponent<Rigidbody2D>().AddForce(t.transform.up * Random.Range(minForce, maxForce), ForceMode2D.Impulse);           
             Destroy(fruit, 5f);
         }
     }

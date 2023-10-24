@@ -4959,6 +4959,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8687986464397852950}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a32e593b2c214122bf8777d5dafc544, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 159593712019097461}
     - targetCorrespondingSourceObject: {fileID: 8936846180691597065, guid: 3a32e593b2c214122bf8777d5dafc544, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8816838271569189838}
@@ -4977,6 +4980,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3a32e593b2c214122bf8777d5dafc544, type: 3}
   m_PrefabInstance: {fileID: 2438228096381767900}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3249129809732398477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3a32e593b2c214122bf8777d5dafc544, type: 3}
+  m_PrefabInstance: {fileID: 2438228096381767900}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &159593712019097461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3249129809732398477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d242e966e3e4a2e4d9597466b812eff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slicedFruitPrefab: {fileID: 0}
 --- !u!1 &4613982783409723647 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7052209771550722083, guid: 3a32e593b2c214122bf8777d5dafc544, type: 3}
