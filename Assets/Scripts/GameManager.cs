@@ -7,12 +7,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public IEnumerator myCoroutine;
+    public IEnumerator spawnObjects;
     public fruitSpawner fSpawner;
     // GameUI elements
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highscoreText;
     // EndGameUI elements
+    public Image fadeImage;
     public GameObject newHighscoreDisplay;
     public TextMeshProUGUI endScoreText;
     public TextMeshProUGUI endHighscoreText;
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {       
         fSpawner = fSpawner.GetComponent<fruitSpawner>();
-        myCoroutine = fSpawner.SpawnFruits();
+        spawnObjects = fSpawner.SpawnFruits();
     }
     void Start()
     {
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour
     {
         MainMenu.SetActive(false);
         ScoreUI.SetActive(true);
-        StartCoroutine(myCoroutine);
+        StartCoroutine(spawnObjects);
     }
 
     public void GoToSettings()
@@ -84,10 +85,11 @@ public class GameManager : MonoBehaviour
 
     public void OnBombCollision()
     {
-        StopCoroutine(myCoroutine);
+        StopCoroutine(spawnObjects);
         ScoreUI.SetActive(false);
         EndGameUI.SetActive(true);
-        CleanScene();       
+        CleanScene();
+        StartCoroutine(ExplodeSequence());
     }
 
     public void CleanScene()
@@ -105,6 +107,37 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(0);
+    }
+
+    private IEnumerator ExplodeSequence()
+    {
+        float elapsed = 0f;
+        float duration = .5f;
+
+        while(elapsed < duration)
+        {
+            float time = Mathf.Clamp01(elapsed / duration);
+            fadeImage.color = Color.Lerp(Color.clear, Color.white, time);
+
+            Time.timeScale = 1f - time;
+            elapsed += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(1f);
+        Time.timeScale = 1f;
+        elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float time = Mathf.Clamp01(elapsed / duration);
+            fadeImage.color = Color.Lerp(Color.white, Color.clear, time);
+
+            elapsed += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
     }
 
     public void OnApplicationQuit()

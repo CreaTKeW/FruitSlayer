@@ -1086,7 +1086,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &473242493
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1461,7 +1461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &669675454
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3811,6 +3811,7 @@ MonoBehaviour:
   fSpawner: {fileID: 735502127}
   scoreText: {fileID: 814580566}
   highscoreText: {fileID: 2072827334}
+  fadeImage: {fileID: 137496306}
   newHighscoreDisplay: {fileID: 1170108242}
   endScoreText: {fileID: 851616303}
   endHighscoreText: {fileID: 733012156}
