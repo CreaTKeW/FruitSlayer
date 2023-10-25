@@ -85,11 +85,11 @@ public class GameManager : MonoBehaviour
 
     public void OnBombCollision()
     {
+        StartCoroutine(ExplodeSequence());
         StopCoroutine(spawnObjects);
         ScoreUI.SetActive(false);
         EndGameUI.SetActive(true);
-        CleanScene();
-        StartCoroutine(ExplodeSequence());
+        CleanScene();        
     }
 
     public void CleanScene()
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator ExplodeSequence()
     {
         float elapsed = 0f;
-        float duration = .5f;
+        float duration = .35f;
 
         while(elapsed < duration)
         {
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(.5f);
         Time.timeScale = 1f;
         elapsed = 0f;
 
