@@ -85,11 +85,9 @@ public class GameManager : MonoBehaviour
 
     public void OnBombCollision()
     {
-        StartCoroutine(ExplodeSequence());
+        CleanScene();
         StopCoroutine(spawnObjects);
-        ScoreUI.SetActive(false);
-        EndGameUI.SetActive(true);
-        CleanScene();        
+        StartCoroutine(ExplodeSequence());                                     
     }
 
     public void CleanScene()
@@ -128,6 +126,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(.5f);
         Time.timeScale = 1f;
         elapsed = 0f;
+
+        ScoreUI.SetActive(false);
+        EndGameUI.SetActive(true);
 
         while (elapsed < duration)
         {
