@@ -2,15 +2,22 @@ using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
-    public GameObject slicedFruitPrefab;  
-    
+    public GameManager gameManager;
+    public GameObject slicedFruitPrefab;
+
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
     public void SpawnSlicedFruit()
     {
-        FindObjectOfType<GameManager>().IncreaseScore(3);
+        gameManager.IncreaseScore(3);
 
         GameObject instance = (GameObject)Instantiate(slicedFruitPrefab, transform.position, transform.rotation);
         Rigidbody[] rbsOnSlice = instance.transform.GetComponentsInChildren<Rigidbody>();
 
+        gameManager.RandomSliceSound();
+        
         foreach(Rigidbody r in rbsOnSlice)
         {
             r.transform.rotation = Random.rotation;

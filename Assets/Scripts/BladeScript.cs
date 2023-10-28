@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class BladeScript : MonoBehaviour
 {
-    public float minVelocity = 0.1f;
-
+    public AudioSource audioSource;
+    public float minVelocity = .1f;
+    
     private Rigidbody2D rb;
     private Vector3 lastMousePosition;
     private Vector3 mouseVelocity;
@@ -14,6 +16,7 @@ public class BladeScript : MonoBehaviour
 
     void Awake()
     {
+        audioSource = GetComponentInChildren<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         collision = GetComponent<Collider2D>();
     }
@@ -38,9 +41,10 @@ public class BladeScript : MonoBehaviour
         float travel = (lastMousePosition - currentMousePosition).magnitude;
         lastMousePosition = currentMousePosition;
 
-        if(travel > minVelocity)
-        {
-            return true;
-        } else return false;
+        if (travel > 1f && !audioSource.isPlaying) audioSource.Play();
+
+        if (travel > minVelocity)
+        { return true;} else return false;
+
     }
 }

@@ -9,27 +9,36 @@ public class GameManager : MonoBehaviour
 {
     public IEnumerator spawnObjects;
     public fruitSpawner fSpawner;
-    // GameUI elements
+
+    [Header("Audio elements")]
+    public AudioClip[] clips;
+    private AudioSource audioSource;
+
+    [Header("InGame UI elements")]
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highscoreText;
-    // EndGameUI elements
+
+    [Header("Endgame UI elements")]
     public Image fadeImage;
     public GameObject newHighscoreDisplay;
     public TextMeshProUGUI endScoreText;
     public TextMeshProUGUI endHighscoreText;
-    // Full UI
+
+    [Header("Complete UI objects")]
     public GameObject MainMenu;
     public GameObject ScoreUI;
     public GameObject SettingsUI;
     public GameObject EndGameUI;
     public GameObject Spawner;
-    // Storage values
+
+    [Header("Stored values")]
     public int score = 0;
     public int highscore = 0;
 
 
     void Awake()
-    {       
+    {
+        audioSource = GetComponent<AudioSource>();
         fSpawner = fSpawner.GetComponent<fruitSpawner>();
         spawnObjects = fSpawner.SpawnFruits();
     }
@@ -88,6 +97,12 @@ public class GameManager : MonoBehaviour
         CleanScene();
         StopCoroutine(spawnObjects);
         StartCoroutine(ExplodeSequence());                                     
+    }
+
+    public void RandomSliceSound()
+    {
+        AudioClip randomSound = clips[Random.Range(0, clips.Length)];
+        audioSource.PlayOneShot(randomSound);
     }
 
     public void CleanScene()
