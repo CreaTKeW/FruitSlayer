@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    GameManager gameManager;
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         BladeScript blade = collision.GetComponent<BladeScript>();
         if(!blade) return;
 
-        FindObjectOfType<GameManager>().OnBombCollision();
+        gameManager.OnBombCollision();
+        gameManager.explosionSound();
     }
 }

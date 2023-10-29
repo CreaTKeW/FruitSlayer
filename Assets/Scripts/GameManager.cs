@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Audio elements")]
     public AudioClip[] clips;
+    [SerializeField] private AudioSource bombAudioSource;
     private AudioSource audioSource;
+    
 
     [Header("InGame UI elements")]
     public TextMeshProUGUI scoreText;
@@ -97,6 +99,11 @@ public class GameManager : MonoBehaviour
         CleanScene();
         StopCoroutine(spawnObjects);
         StartCoroutine(ExplodeSequence());                                     
+    }
+
+    public void explosionSound()
+    {
+        bombAudioSource.Play();
     }
 
     public void RandomSliceSound()
