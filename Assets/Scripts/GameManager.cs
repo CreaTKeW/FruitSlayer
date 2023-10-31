@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         endHighscoreText.text = highscore.ToString();
 
         hearts.SetActive(false);
+        SettingsUI.SetActive(false);
         newHighscoreDisplay.SetActive(false);
         MainMenu.SetActive(true);
         ScoreUI.SetActive(false);
