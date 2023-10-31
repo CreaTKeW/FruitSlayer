@@ -33,30 +33,16 @@ public class PlayerStats : MonoBehaviour
     public float MaxHealth { get { return maxHealth; } }
     public float MaxTotalHealth { get { return maxTotalHealth; } }
 
-    public void Heal(float health)
-    {
-        this.health += health;
-        ClampHealth();
-    }
-
     public void TakeDamage(float dmg)
     {
         health -= dmg;
         ClampHealth();
-    }
 
-    public void AddHealth()
-    {
-        if (maxHealth < maxTotalHealth)
+        if (health == 0)
         {
-            maxHealth += 1;
-            health = maxHealth;
-
-            if (onHealthChangedCallback != null)
-                onHealthChangedCallback.Invoke();
-        }   
+            FindObjectOfType<GameManager>().EndGame();
+        }
     }
-
     void ClampHealth()
     {
         health = Mathf.Clamp(health, 0, maxHealth);

@@ -11,12 +11,14 @@ public class GameManager : MonoBehaviour
     public fruitSpawner fSpawner;
 
     [Header("Audio elements")]
+    private AudioSource mainAudioSource;
     public AudioClip[] clips;
-    [SerializeField] private AudioSource bombAudioSource;
-    private AudioSource audioSource;
-    
+    [SerializeField] private AudioClip looseHealthSound;
+    [SerializeField] private AudioClip bombAudioSound;   
+
 
     [Header("InGame UI elements")]
+    public GameObject hearts;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highscoreText;
 
@@ -40,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        mainAudioSource = GetComponent<AudioSource>();
         fSpawner = fSpawner.GetComponent<fruitSpawner>();
         spawnObjects = fSpawner.SpawnFruits();
     }
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour
         highscoreText.text = highscore.ToString();
         endHighscoreText.text = highscore.ToString();
 
+        hearts.SetActive(false);
         newHighscoreDisplay.SetActive(false);
         MainMenu.SetActive(true);
         ScoreUI.SetActive(false);
@@ -77,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        hearts.SetActive(true);
         MainMenu.SetActive(false);
         ScoreUI.SetActive(true);
         StartCoroutine(spawnObjects);
@@ -97,19 +101,35 @@ public class GameManager : MonoBehaviour
     public void OnBombCollision()
     {
         CleanScene();
+        hearts.SetActive(false);
         StopCoroutine(spawnObjects);
         StartCoroutine(ExplodeSequence());                                     
     }
 
+    public void EndGame()
+    {
+        CleanScene();
+        StopCoroutine(spawnObjects);
+
+        ScoreUI.SetActive(false);
+        EndGameUI.SetActive(true);
+        hearts.SetActive(false);
+    }
+
+    public void lostHealthSound()
+    {
+        mainAudioSource.PlayOneShot(looseHealthSound);
+    }
+
     public void explosionSound()
     {
-        bombAudioSource.Play();
+        mainAudioSource.PlayOneShot(bombAudioSound);        
     }
 
     public void RandomSliceSound()
     {
         AudioClip randomSound = clips[Random.Range(0, clips.Length)];
-        audioSource.PlayOneShot(randomSound);
+        mainAudioSource.PlayOneShot(randomSound);
     }
 
     public void CleanScene()

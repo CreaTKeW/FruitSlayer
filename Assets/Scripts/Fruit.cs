@@ -5,6 +5,16 @@ public class Fruit : MonoBehaviour
     public GameManager gameManager;
     public GameObject slicedFruitPrefab;
 
+    private void Update()
+    {
+        if(this.gameObject.transform.position.y <= -15)
+        {
+            FindObjectOfType<PlayerStats>().TakeDamage(1f);
+            gameManager.lostHealthSound();
+            Destroy(this.gameObject);
+        }
+    }
+
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
