@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
-    public GameManager gameManager;
-    public GameObject slicedFruitPrefab;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameObject slicedFruitPrefab;
 
     private void Update()
     {

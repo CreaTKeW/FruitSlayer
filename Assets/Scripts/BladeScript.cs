@@ -1,17 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 
 public class BladeScript : MonoBehaviour
 {
-    public AudioSource audioSource;
-    public float minVelocity = .1f;
+    [SerializeField] private AudioSource audioSource;
+    private float minVelocity = .1f;
     
     private Rigidbody2D rb;
     private Vector3 lastMousePosition;
-    private Vector3 mouseVelocity;
-
     private Collider2D collision;
 
     void Awake()

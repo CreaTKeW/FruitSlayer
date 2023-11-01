@@ -4,12 +4,12 @@ using UnityEngine.UI;
 public class MusicVolumeController : MonoBehaviour
 {
     [Header("Sliders")]
-    public Slider musicVolumeSlider;
-    public Slider soundEffectsSlider;
+    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider soundEffectsSlider;
 
     [Header("AudioSources")]
-    public AudioSource musicAudioSource;
-    public AudioSource soundEffectsAudioSource;
+    [SerializeField] private AudioSource musicAudioSource;
+    [SerializeField] private AudioSource soundEffectsAudioSource;
 
     // default value of 50% for every sound
     private float musicVolume = .5f;
@@ -17,9 +17,18 @@ public class MusicVolumeController : MonoBehaviour
 
     void Start()
     {
-        // Getting the playerprefs values when starting game
-        musicVolume = PlayerPrefs.GetFloat("musicPlaylistVolume");
-        soundEffectsVolume = PlayerPrefs.GetFloat("soundEffectsVolume");
+        // If the playerprefs key is not found set to our default value
+        // If the playerprefs key is found it gets the set value
+        if (!PlayerPrefs.HasKey("musicPlaylistVolume"))
+        {
+            PlayerPrefs.SetFloat("musicPlaylistVolume", musicVolume);
+        } else musicVolume = PlayerPrefs.GetFloat("musicPlaylistVolume");
+
+        if (!PlayerPrefs.HasKey("soundEffectsVolume"))
+        {
+            PlayerPrefs.SetFloat("soundEffectsVolume", soundEffectsVolume);
+        } else soundEffectsVolume = PlayerPrefs.GetFloat("soundEffectsVolume");
+
 
         // music playlist slider and audio source
         musicAudioSource.volume = musicVolume;

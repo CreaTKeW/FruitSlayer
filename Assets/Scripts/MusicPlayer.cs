@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MusicPlayer : MonoBehaviour
 {
-    public AudioClip[] clips;
+    [SerializeField] private AudioClip[] clips;
     private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponentInChildren<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         audioSource.loop = false;
     }
 

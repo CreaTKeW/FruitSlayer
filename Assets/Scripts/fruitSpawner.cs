@@ -1,21 +1,24 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class fruitSpawner : MonoBehaviour
 {
-    public GameObject fruit;
-    public GameObject[] fruitsToSpawn;
-    public GameObject bomb;
-    public Transform[] spawnPlaces;
-    public float minWaitTime = .3f;
-    public float maxWaitTime = 1f;
-    public float minForce = 15f;
-    public float maxForce = 20f;
+    [Header("GameObjects to spawn")]
+    [SerializeField] private GameObject fruit;
+    [SerializeField] private GameObject[] fruitsToSpawn;
+    [SerializeField] private GameObject bomb;
+
+    [Header("Places from which object spawns")]
+    [SerializeField] private Transform[] spawnPlaces;
+
+    [Header("Values that control spawning objects time")]
+    [SerializeField] private float minWaitTime = .3f;
+    [SerializeField] private float maxWaitTime = 1f;
+
+    [Header("Values that control force that push fruits from spawnplaces")]
+    [SerializeField] private float minForce = 15f;
+    [SerializeField] private float maxForce = 20f;
 
     public IEnumerator SpawnFruits()
     {

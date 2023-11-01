@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,33 +10,33 @@ public class GameManager : MonoBehaviour
     public fruitSpawner fSpawner;
 
     [Header("Audio elements")]
-    private AudioSource mainAudioSource;
-    public AudioClip[] clips;
+    [SerializeField] private AudioSource mainAudioSource;
+    [SerializeField] private AudioClip[] clips;
     [SerializeField] private AudioClip looseHealthSound;
     [SerializeField] private AudioClip bombAudioSound;   
 
 
     [Header("InGame UI elements")]
-    public GameObject hearts;
-    public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI highscoreText;
+    [SerializeField] private GameObject hearts;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI highscoreText;
 
     [Header("Endgame UI elements")]
-    public Image fadeImage;
-    public GameObject newHighscoreDisplay;
-    public TextMeshProUGUI endScoreText;
-    public TextMeshProUGUI endHighscoreText;
+    [SerializeField] private Image fadeImage;
+    [SerializeField] private GameObject newHighscoreDisplay;
+    [SerializeField] private TextMeshProUGUI endScoreText;
+    [SerializeField] private TextMeshProUGUI endHighscoreText;
 
     [Header("Complete UI objects")]
-    public GameObject MainMenu;
-    public GameObject ScoreUI;
-    public GameObject SettingsUI;
-    public GameObject EndGameUI;
-    public GameObject Spawner;
+    [SerializeField] private GameObject MainMenu;
+    [SerializeField] private GameObject ScoreUI;
+    [SerializeField] private GameObject SettingsUI;
+    [SerializeField] private GameObject EndGameUI;
+    [SerializeField] private GameObject Spawner;
 
     [Header("Stored values")]
-    public int score = 0;
-    public int highscore = 0;
+    [SerializeField] private int score = 0;
+    [SerializeField] private int highscore = 0;
 
 
     void Awake()
@@ -46,12 +45,15 @@ public class GameManager : MonoBehaviour
         fSpawner = fSpawner.GetComponent<fruitSpawner>();
         spawnObjects = fSpawner.SpawnFruits();
     }
+
     void Start()
     {
+        // Gets the current highscore and displays it
         highscore = PlayerPrefs.GetInt("highscore");
         highscoreText.text = highscore.ToString();
         endHighscoreText.text = highscore.ToString();
 
+        // Sets all UI prefabs to default state
         hearts.SetActive(false);
         SettingsUI.SetActive(false);
         newHighscoreDisplay.SetActive(false);
@@ -60,26 +62,26 @@ public class GameManager : MonoBehaviour
         EndGameUI.SetActive(false);
     }
 
-    public void IncreaseScore(int points)
-    {
+    public void IncreaseScore(int points) //Increase the score by the input value and update the scoreboard
+    {        
         score += points;
         scoreText.text = score.ToString();
         endScoreText.text = score.ToString();
         UpdateScoreBoard();
     }
-    public void UpdateScoreBoard()
+    private void UpdateScoreBoard()
     {
-        if(score > highscore)
+        if(score > highscore) // checks if the current score is higher than our highscore
         {            
             PlayerPrefs.SetInt("highscore", score);
             highscore = PlayerPrefs.GetInt("highscore");
             highscoreText.text = highscore.ToString();
-            if (EndGameUI != null) newHighscoreDisplay.SetActive(true); 
+            newHighscoreDisplay.SetActive(true); 
         }
         else { return; }
     }
 
-    public void StartGame()
+    private void StartGame() 
     {
         hearts.SetActive(true);
         MainMenu.SetActive(false);
@@ -87,19 +89,19 @@ public class GameManager : MonoBehaviour
         StartCoroutine(spawnObjects);
     }
 
-    public void GoToSettings()
+    private void GoToSettings() 
     {
         MainMenu.SetActive(false);
         SettingsUI.SetActive(true);
     }
 
-    public void BackToMainMenu()
+    private void BackToMainMenu() 
     {
         SettingsUI.SetActive(false);
         MainMenu.SetActive(true);
     }
 
-    public void OnBombCollision()
+    public void OnBombCollision() // This method is called once bomb gameobject is triggered
     {
         CleanScene();
         hearts.SetActive(false);
@@ -107,7 +109,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ExplodeSequence());                                     
     }
 
-    public void EndGame()
+    public void EndGame() // This method is called when player runs out of lives
     {
         CleanScene();
         StopCoroutine(spawnObjects);
@@ -127,18 +129,20 @@ public class GameManager : MonoBehaviour
         mainAudioSource.PlayOneShot(bombAudioSound);        
     }
 
-    public void RandomSliceSound()
+    public void RandomSliceSound() // plays a random clip from an array
     {
         AudioClip randomSound = clips[Random.Range(0, clips.Length)];
         mainAudioSource.PlayOneShot(randomSound);
     }
 
-    public void CleanScene()
+    private void CleanScene()
     {
+        // Destroy all the objects that contain Fruit script
         Fruit[] fruits = FindObjectsOfType<Fruit>();
         foreach (Fruit fruit in fruits)
         { Destroy(fruit.gameObject); }
 
+        // Destroy all the objects that contain Bomb script
         Bomb[] bombs = FindObjectsOfType<Bomb>();
         foreach (Bomb bomb in bombs) 
         { Destroy(bomb.gameObject); }
@@ -147,14 +151,18 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        // Need to change that ASAP
         SceneManager.LoadScene(0);
     }
 
     private IEnumerator ExplodeSequence()
     {
+        // Quite complex for just an explosion flash
+
         float elapsed = 0f;
         float duration = .35f;
 
+        // Changes from clear screen to white Image object
         while(elapsed < duration)
         {
             float time = Mathf.Clamp01(elapsed / duration);
@@ -173,6 +181,7 @@ public class GameManager : MonoBehaviour
         ScoreUI.SetActive(false);
         EndGameUI.SetActive(true);
 
+        // Changes from flash to clear screen
         while (elapsed < duration)
         {
             float time = Mathf.Clamp01(elapsed / duration);
@@ -184,12 +193,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnApplicationQuit()
+    public void OnApplicationQuit() // This method is called when Quit button is pressed
     {
-        #if UNITY_EDITOR
+        #if UNITY_EDITOR // Exits the play state of the editor
             UnityEditor.EditorApplication.isPlaying = false;
 
-        #else
+        #else // When pressed exits the game
             Application.Quit();
         #endif
     }
