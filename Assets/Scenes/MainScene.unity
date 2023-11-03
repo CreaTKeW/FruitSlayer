@@ -208,12 +208,11 @@ GameObject:
   m_Component:
   - component: {fileID: 61077262}
   - component: {fileID: 61077263}
-  - component: {fileID: 61077264}
-  - component: {fileID: 61077265}
   - component: {fileID: 61077266}
+  - component: {fileID: 61077265}
   m_Layer: 0
   m_Name: PlayerBlade
-  m_TagString: Untagged
+  m_TagString: Blade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -356,33 +355,6 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!50 &61077264
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 61077261}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!114 &61077265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9cdb8e9ecbd4c24bb16f410f0fe56cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 1366890927}
+  minSliceVelocity: 0.1
 --- !u!58 &61077266
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1922,7 +1894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &708472998
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2154,7 +2126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9b8f356cf1e11049a27f873f435fe73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruit: {fileID: 0}
   fruitsToSpawn:
   - {fileID: 8792517658187293046, guid: 59b21fa8e634ec247b7a421886c29e79, type: 3}
   - {fileID: 8928290856905155753, guid: dd75bc029c6f11545b40985d8d226e66, type: 3}
@@ -2993,7 +2964,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3722,7 +3693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fSpawner: {fileID: 735502127}
-  mainAudioSource: {fileID: 0}
+  mainAudioSource: {fileID: 601112861}
   clips:
   - {fileID: 8300000, guid: fe528e41237b3ba45b45f61deab587d6, type: 3}
   looseHealthSound: {fileID: 8300000, guid: ca89b954fcfc639438e3c32c31beb9ec, type: 3}

@@ -2,8 +2,15 @@ using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager;
+    private BladeScript blade;
+    private GameManager gameManager;
     [SerializeField] private GameObject slicedFruitPrefab;
+
+    private void Awake()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        blade = FindObjectOfType<BladeScript>();
+    }
 
     private void Update()
     {
@@ -13,12 +20,8 @@ public class Fruit : MonoBehaviour
             gameManager.lostHealthSound();
             Destroy(this.gameObject);
         }
-    }
+    }   
 
-    private void Awake()
-    {
-        gameManager = FindObjectOfType<GameManager>();
-    }
     public void SpawnSlicedFruit()
     {
         gameManager.IncreaseScore(3);
@@ -40,9 +43,9 @@ public class Fruit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        BladeScript b = collision.GetComponent<BladeScript>();
-        if(!b) return;
-
-        SpawnSlicedFruit();
+        if(collision.tag == "Blade")
+        {
+            SpawnSlicedFruit();
+        }               
     }
 }

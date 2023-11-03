@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        GameObject.Find("Main Camera").transform.position = new Vector3 (0, 0, -10);
         mainAudioSource = GetComponent<AudioSource>();
         fSpawner = fSpawner.GetComponent<fruitSpawner>();
         spawnObjects = fSpawner.SpawnFruits();

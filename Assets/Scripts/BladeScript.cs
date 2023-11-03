@@ -2,44 +2,85 @@ using UnityEngine;
 
 public class BladeScript : MonoBehaviour
 {
-    [SerializeField] private AudioSource audioSource;
-    private float minVelocity = .1f;
-    
-    private Rigidbody2D rb;
-    private Vector3 lastMousePosition;
-    private Collider2D collision;
+    private AudioSource sliceSound;
+    private Camera mainCamera;
+    private Collider2D bladeCollider;
+    private TrailRenderer trailRenderer;
+    private bool slicing;
 
-    void Awake()
+    public Vector3 direction {  get; private set; }
+    public float minSliceVelocity = 0.01f;
+
+    private void Awake()
     {
-        audioSource = GetComponentInChildren<AudioSource>();
-        rb = GetComponent<Rigidbody2D>();
-        collision = GetComponent<Collider2D>();
+        mainCamera = Camera.main;
+        sliceSound = GetComponentInChildren<AudioSource>();
+        trailRenderer = GetComponent<TrailRenderer>();        
+        bladeCollider = GetComponent<Collider2D>();
+    }
+    private void OnEnable()
+    {
+        StopSlicing();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        collision.enabled = IsMouseMoving();
-        BladeAtMouse();
+        StopSlicing();
     }
 
-    private void BladeAtMouse()
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartSlicing();
+        } 
+        else if (Input.GetMouseButtonUp(0))
+        {
+            StopSlicing();
+        }
+        else if (slicing)
+        {
+            ContinueSlicing();
+        }
+    }
+
+    private void StartSlicing()
     {
         var mousePosition = Input.mousePosition;
-        mousePosition.z = 10; // distanced 10 units from z default value
-        rb.position = Camera.main.ScreenToWorldPoint(mousePosition);
+        mousePosition.z = 10f;
+        Vector3 newPosition = mainCamera.ScreenToWorldPoint(mousePosition);
+
+        transform.position = newPosition;
+
+        slicing = true;
+        bladeCollider.enabled = true;
+        trailRenderer.enabled = true;
+        trailRenderer.Clear();
     }
 
-    private bool IsMouseMoving()
+    private void StopSlicing()
     {
-        Vector3 currentMousePosition = transform.position;
-        float travel = (lastMousePosition - currentMousePosition).magnitude;
-        lastMousePosition = currentMousePosition;
+        slicing = false;
+        bladeCollider.enabled = false;
+        trailRenderer.enabled = false;
+    }
 
-        if (travel > 1f && !audioSource.isPlaying) audioSource.Play();
+    private void ContinueSlicing()
+    {
+        var mousePosition = Input.mousePosition;
+        mousePosition.z = 10f;
+        Vector3 newPosition = mainCamera.ScreenToWorldPoint(mousePosition);
 
-        if (travel > minVelocity)
-        { return true;} else return false;
+        direction = newPosition - transform.position;
 
+        float velocity = direction.magnitude / Time.deltaTime;
+        bladeCollider.enabled = velocity > minSliceVelocity;
+
+        if (velocity > 1f && !sliceSound.isPlaying)
+        {
+            sliceSound.Play();
+        }
+
+        transform.position = newPosition;
     }
 }

@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 public class fruitSpawner : MonoBehaviour
 {
     [Header("GameObjects to spawn")]
-    [SerializeField] private GameObject fruit;
+    private GameObject fruit;
     [SerializeField] private GameObject[] fruitsToSpawn;
     [SerializeField] private GameObject bomb;
 

@@ -10,10 +10,10 @@ public class Bomb : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        blade = collision.GetComponent<BladeScript>();
-        if(!blade) return;
-
-        gameManager.OnBombCollision();
-        gameManager.explosionSound();
+        if (collision.tag == "Blade")
+        {
+            gameManager.OnBombCollision();
+            gameManager.explosionSound();
+        }        
     }
 }
