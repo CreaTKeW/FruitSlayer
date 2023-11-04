@@ -45,7 +45,7 @@ For details, please refer to the [LICENSE](https://github.com/CreaTKeW/FruitSlay
 
 To play Fruit Slayer locally on your machine, follow these steps:
 
-1. Download the latest game version files from [the releases section of this repository](#insert-link-to-releases).
+1. Download the latest game version files from [the releases section of this repository](https://github.com/CreaTKeW/FruitSlayer/releases).
 2. Extract the downloaded files to a folder on your computer.
 3. Open the `FruitSlayer.exe` executable file to start the game.
 
