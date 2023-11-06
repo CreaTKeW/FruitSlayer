@@ -13,10 +13,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioSource mainAudioSource;
     [SerializeField] private AudioClip[] clips;
     [SerializeField] private AudioClip looseHealthSound;
-    [SerializeField] private AudioClip bombAudioSound;   
+    [SerializeField] private AudioClip bombAudioSound;
 
 
     [Header("InGame UI elements")]
+    [SerializeField] private GameObject playerBlade;
     [SerializeField] private GameObject hearts;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI highscoreText;
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
         endHighscoreText.text = highscore.ToString();
 
         // Sets all UI prefabs to default state
+        playerBlade.SetActive(false);
         hearts.SetActive(false);
         SettingsUI.SetActive(false);
         newHighscoreDisplay.SetActive(false);
@@ -84,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     private void StartGame() 
     {
+        playerBlade.SetActive(true);
         hearts.SetActive(true);
         MainMenu.SetActive(false);
         ScoreUI.SetActive(true);
@@ -105,7 +108,10 @@ public class GameManager : MonoBehaviour
     public void OnBombCollision() // This method is called once bomb gameobject is triggered
     {
         CleanScene();
+
+        playerBlade.SetActive(false);
         hearts.SetActive(false);
+
         StopCoroutine(spawnObjects);
         StartCoroutine(ExplodeSequence());                                     
     }
@@ -115,6 +121,7 @@ public class GameManager : MonoBehaviour
         CleanScene();
         StopCoroutine(spawnObjects);
 
+        playerBlade.SetActive(false);
         ScoreUI.SetActive(false);
         EndGameUI.SetActive(true);
         hearts.SetActive(false);

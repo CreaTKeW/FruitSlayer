@@ -1914,7 +1914,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960, y: -540}
+  m_AnchoredPosition: {x: 975, y: -555}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &723368072
@@ -3698,6 +3698,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fe528e41237b3ba45b45f61deab587d6, type: 3}
   looseHealthSound: {fileID: 8300000, guid: ca89b954fcfc639438e3c32c31beb9ec, type: 3}
   bombAudioSound: {fileID: 8300000, guid: 6cfb51e51586f0c4997bf543e3b6c426, type: 3}
+  playerBlade: {fileID: 61077261}
   hearts: {fileID: 328203262}
   scoreText: {fileID: 814580566}
   highscoreText: {fileID: 2072827334}
