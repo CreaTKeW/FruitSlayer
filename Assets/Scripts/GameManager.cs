@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private adsManager adsManager;
     public IEnumerator spawnObjects;
     public fruitSpawner fSpawner;
 
@@ -42,10 +43,12 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        GameObject.Find("Main Camera").transform.position = new Vector3 (0, 0, -10);
+        adsManager = FindObjectOfType<adsManager>();       
         mainAudioSource = GetComponent<AudioSource>();
         fSpawner = fSpawner.GetComponent<fruitSpawner>();
         spawnObjects = fSpawner.SpawnFruits();
+
+        GameObject.Find("Main Camera").transform.position = new Vector3(0, 0, -10);
     }
 
     void Start()
@@ -107,6 +110,7 @@ public class GameManager : MonoBehaviour
 
     public void OnBombCollision() // This method is called once bomb gameobject is triggered
     {
+        adsManager.LoadInterstitial();
         CleanScene();
 
         playerBlade.SetActive(false);
@@ -118,6 +122,7 @@ public class GameManager : MonoBehaviour
 
     public void EndGame() // This method is called when player runs out of lives
     {
+        adsManager.LoadInterstitial();
         CleanScene();
         StopCoroutine(spawnObjects);
 
@@ -159,13 +164,12 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
-        // Need to change that ASAP
+        // Need to change that
         SceneManager.LoadScene(0);
     }
 
     private IEnumerator ExplodeSequence()
     {
-        // Quite complex for just an explosion flash
 
         float elapsed = 0f;
         float duration = .35f;
@@ -201,7 +205,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void OnApplicationQuit() // This method is called when Quit button is pressed
+    public void OnApplicationQuit()
     {
         #if UNITY_EDITOR // Exits the play state of the editor
             UnityEditor.EditorApplication.isPlaying = false;
