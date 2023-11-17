@@ -33,11 +33,11 @@ For details, please refer to the [LICENSE](https://github.com/CreaTKeW/FruitSlay
 
 ## Features
 
-- 🍉 Slice and dice a variety of delicious fruits with your virtual blade.
-- 💣 Avoid deadly bombs that can appear unexpectedly.
-- ❌ Don't let fruits pass uncut, as it costs you a life.
-- 🌐 Compete on leaderboards and achieve the highest high score.
-- 🔊 Immerse yourself in the action with an electrifying soundtrack.
+🍉 Slice and Dice: Grab your virtual blade and embark on a fruit-slashing frenzy. Swipe and cut through a variety of delicious fruits, including apples, oranges, watermelons, and more. The better your precision and timing, the higher your score!
+💣 Watch Out for Bombs: It's not just about slicing fruit; you'll need to keep a sharp eye out for bombs that can appear unexpectedly. One wrong move, and your game could go up in smoke!
+❌ Avoid the Fruit Misses: Every fruit that passes you uncut costs you a life.
+🏆 High Scores: Challenge yourself to achieve the highest scores!
+🔊 Soundtrack: Immerse yourself in the action with a soundtrack that intensifies the gameplay experience.
 
 ## How to Play
 
